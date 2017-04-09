@@ -1,0 +1,32 @@
+<template>
+  <transition name="transition-page" mode="out-in">
+    <router-view></router-view>
+  </transition>
+</template>
+
+<script>
+export default {
+  name: 'app',
+}
+</script>
+
+<style lang="stylus">
+html, body, .vcContainer
+  height: 100%
+
+.transition-page
+  &-enter-active, &-leave-active
+    will-change: opacity
+    transition: opacity .2s
+    transition-timing-function: ease-out-cubic
+  &-enter, &-leave-active
+    opacity: 0
+
+.el-menu-item, .el-submenu__title
+  line-height: 40px
+  height: @line-height
+
+.section
+  padding: 30px
+
+</style>
