@@ -25,8 +25,4 @@ html, body, .vcContainer
 .el-menu-item, .el-submenu__title
   line-height: 40px
   height: @line-height
-
-.section
-  padding: 30px
-
 </style>

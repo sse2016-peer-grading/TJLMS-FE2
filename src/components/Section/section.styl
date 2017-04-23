@@ -1,0 +1,29 @@
+.section
+  box-sizing: border-box
+  float: left
+  position: relative
+  height: 100%
+  display: flex
+  flex-direction: column
+  border: 1px solid oc-gray-7
+  padding: 1px
+  margin-right: -1px
+
+  &_title
+    padding: 8px 10px
+    background: oc-gray-7
+    transition: background-color .1s linear
+    color: #FFF
+    font-size: 16px
+
+  &_body
+    flex: 1
+    overflow-y: auto
+    padding: 10px
+
+.section-container
+  position: relative
+  width: 100%
+  height: 100%
+  white-space: nowrap
+  overflow-x: auto

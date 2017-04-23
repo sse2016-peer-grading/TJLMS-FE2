@@ -4,6 +4,9 @@ import Router from 'vue-router';
 import LoginPage from '@/pages/Login';
 import LayoutPage from '@/pages/Layout';
 import DashboardPage from '@/pages/Dashboard';
+import ManageAssignmentAllPage from '@/pages/Manage/AssignmentAll';
+import ManageAssignmentCreatePage from '@/pages/Manage/AssignmentCreate';
+import ManageAssignmentDetailPage from '@/pages/Manage/AssignmentDetail';
 import ManageSubmissionStatusPage from '@/pages/Manage/SubmissionStatus';
 import UserLogoutPage from '@/pages/User/Logout';
 import ErrorNotFoundPage from '@/pages/Error/NotFound';
@@ -34,6 +37,31 @@ const router = new Router({
           meta: {
             title: '仪表盘',
             roles: ['admin', 'ta', 'student'],
+          },
+        },
+        {
+          path: '/manage/assignments',
+          component: ManageAssignmentAllPage,
+          meta: {
+            title: '所有作业',
+            roles: ['admin', 'ta'],
+          },
+        },
+        {
+          path: '/manage/assignments/:id',
+          component: ManageAssignmentDetailPage,
+          name: 'ManageAssignmentDetailPage',
+          meta: {
+            title: '作业信息',
+            roles: ['admin', 'ta'],
+          },
+        },
+        {
+          path: '/manage/assignments/create',
+          component: ManageAssignmentCreatePage,
+          meta: {
+            title: '创建作业',
+            roles: ['admin', 'ta'],
           },
         },
         {

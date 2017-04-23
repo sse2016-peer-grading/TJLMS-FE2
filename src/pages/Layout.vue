@@ -5,12 +5,17 @@
         class="leftMenu"
         theme="dark"
         :default-active="$route.fullPath"
-        :default-openeds="['manage', 'user']"
+        :default-openeds="['problem_manage', 'answer_manage', 'user']"
         router
       >
         <el-menu-item index="/">仪表盘</el-menu-item>
-        <el-submenu index="manage" v-if="['admin', 'ta'].indexOf(session.role) > -1">
-          <template slot="title">管理</template>
+        <el-submenu index="problem_manage" v-if="['admin', 'ta'].indexOf(session.role) > -1">
+          <template slot="title">题目管理</template>
+          <el-menu-item index="/manage/assignments">所有作业</el-menu-item>
+          <el-menu-item index="/manage/assignments/create">创建作业</el-menu-item>
+        </el-submenu>
+        <el-submenu index="answer_manage" v-if="['admin', 'ta'].indexOf(session.role) > -1">
+          <template slot="title">答案管理</template>
           <el-menu-item index="/manage/submission-status">递交状态</el-menu-item>
         </el-submenu>
         <el-submenu index="user">

@@ -30,6 +30,16 @@ const API = {
       return request.get('/api/user/logout');
     },
   },
+  manage: {
+    assignment: {
+      all() {
+        return request.get('/api/manage/assignment');
+      },
+      detail(id) {
+        return request.get(`/api/manage/assignment/${id}`);
+      },
+    },
+  },
 };
 
 export default API;

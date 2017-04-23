@@ -12,7 +12,9 @@
     "axios": "^0.16.1",
     "element-ui": "^1.2.8",
     "nprogress": "^0.2.0",
+    "open-color": "^1.5.1",
     "vue": "^2.2.2",
+    "vue-moment": "^2.0.2",
     "vue-router": "^2.2.0",
     "vuex": "^2.2.1"
   },

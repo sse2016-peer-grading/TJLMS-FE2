@@ -1,12 +1,11 @@
 <template>
-  <div class="section">
-    <div>
-      <h1>登出当前用户</h1>
+  <ui-section-container>
+    <ui-section title="登出用户">
       <p>当前用户：{{ session.username }}</p>
       <p>当前权限：{{ session.role }}</p>
       <el-button type="primary" @click="handleClick">点击此处登出</el-button>
-    </div>
-  </div>
+    </ui-section>
+  </ui-section-container>
 </template>
 
 <script>
