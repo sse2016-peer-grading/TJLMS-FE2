@@ -25,4 +25,11 @@ html, body, .vcContainer
 .el-menu-item, .el-submenu__title
   line-height: 40px
   height: @line-height
+
+.ui-mono
+  textarea, input
+    font-family: Menlo,Monaco,Consolas,Courier,monospace
+
+.el-textarea__inner
+  font-size: 12px
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <ui-section-container>
+  <ui-section-container v-loading.body="loading">
     <ui-section title="所有作业">
       <el-table :data="data" border style="width: 100%">
         <el-table-column label="名称">
           <template scope="scope">
-            <router-link :to="{ name: 'ManageAssignmentDetailPage', params: { id: scope.row._id } }">{{ scope.row.name }}</router-link>
+            <router-link :to="{ name: 'ManageAssignmentDetail', params: { id: scope.row._id } }">{{ scope.row.name }}</router-link>
           </template>
         </el-table-column>
         <el-table-column label="可见性" width="100">
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       data: [],
+      loading: false,
     };
   },
   created() {
@@ -51,7 +52,12 @@ export default {
   },
   methods: {
     async initData() {
-      this.data = (await API.manage.assignment.all()).data;
+      this.loading = true;
+      try {
+        this.data = (await API.manage.assignment.all()).data;
+      } finally {
+        this.loading = false;
+      }
     },
   },
 }

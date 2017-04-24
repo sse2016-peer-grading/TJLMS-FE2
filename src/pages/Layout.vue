@@ -72,6 +72,10 @@ export default {
   top: 0
   right: 0
   height: 100%
+  background: oc-gray-1
+  overflow-x: auto
+  white-space: nowrap
+  font-size: 0
 
 .leftMenu
   height: 100%

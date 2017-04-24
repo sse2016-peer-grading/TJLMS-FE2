@@ -1,16 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import LoginPage from '@/pages/Login';
-import LayoutPage from '@/pages/Layout';
-import DashboardPage from '@/pages/Dashboard';
-import ManageAssignmentAllPage from '@/pages/Manage/AssignmentAll';
-import ManageAssignmentCreatePage from '@/pages/Manage/AssignmentCreate';
-import ManageAssignmentDetailPage from '@/pages/Manage/AssignmentDetail';
-import ManageSubmissionStatusPage from '@/pages/Manage/SubmissionStatus';
-import UserLogoutPage from '@/pages/User/Logout';
-import ErrorNotFoundPage from '@/pages/Error/NotFound';
-import ErrorForbiddenPage from '@/pages/Error/Forbidden';
 import store from '@/store';
 
 import NProgress from 'nprogress';
@@ -22,18 +12,18 @@ const router = new Router({
   routes: [
     {
       path: '/login',
-      component: LoginPage,
+      component: require('@/pages/Login'),
       meta: {
         title: '登录',
       },
     },
     {
       path: '/',
-      component: LayoutPage,
+      component: require('@/pages/Layout'),
       children: [
         {
           path: '/',
-          component: DashboardPage,
+          component: require('@/pages/Dashboard'),
           meta: {
             title: '仪表盘',
             roles: ['admin', 'ta', 'student'],
@@ -41,7 +31,7 @@ const router = new Router({
         },
         {
           path: '/manage/assignments',
-          component: ManageAssignmentAllPage,
+          component: require('@/pages/Manage/Assignment/All'),
           meta: {
             title: '所有作业',
             roles: ['admin', 'ta'],
@@ -49,16 +39,26 @@ const router = new Router({
         },
         {
           path: '/manage/assignments/:id',
-          component: ManageAssignmentDetailPage,
-          name: 'ManageAssignmentDetailPage',
+          component: require('@/pages/Manage/Assignment/Detail'),
+          name: 'ManageAssignmentDetail',
           meta: {
             title: '作业信息',
             roles: ['admin', 'ta'],
           },
+          children: [
+            {
+              path: '/manage/assignments/:id/:pid',
+              component: require('@/pages/Manage/Assignment/Detail/ProblemDetail'),
+              name: 'ManageAssignmentDetailProblemDetail',
+              meta: {
+                roles: ['admin', 'ta'],
+              },
+            },
+          ],
         },
         {
           path: '/manage/assignments/create',
-          component: ManageAssignmentCreatePage,
+          component: require('@/pages/Manage/Assignment/Create'),
           meta: {
             title: '创建作业',
             roles: ['admin', 'ta'],
@@ -66,7 +66,7 @@ const router = new Router({
         },
         {
           path: '/manage/submission-status',
-          component: ManageSubmissionStatusPage,
+          component: require('@/pages/Manage/SubmissionStatus'),
           meta: {
             title: '递交状态',
             roles: ['admin', 'ta'],
@@ -74,7 +74,7 @@ const router = new Router({
         },
         {
           path: '/user/logout',
-          component: UserLogoutPage,
+          component: require('@/pages/User/Logout'),
           meta: {
             title: '登出',
             roles: ['admin', 'ta', 'student'],
@@ -84,14 +84,14 @@ const router = new Router({
     },
     {
       path: '/error/forbidden',
-      component: ErrorForbiddenPage,
+      component: require('@/pages/Error/Forbidden'),
       meta: {
         title: 'Forbidden',
       },
     },
     {
       path: '*',
-      component: ErrorNotFoundPage,
+      component: require('@/pages/Error/NotFound'),
       meta: {
         title: 'Page Not Found',
       },
