@@ -1,23 +1,28 @@
 <template>
-  <ui-section-container v-loading.body="loading">
+  <ui-section-container key="assignment_detail" v-loading.body="loading">
     <ui-section title="作业信息" width="300px">
-      <el-form ref="form" :model="data" label-position="top">
-        <el-form-item label="ID">
-          <el-input v-model="data._id" disabled></el-input>
-        </el-form-item>
-        <el-form-item label="名称">
-          <el-input v-model="data.name"></el-input>
-        </el-form-item>
-        <el-form-item label="时间">
-          <el-date-picker v-model="dateRange" type="daterange" placeholder="选择日期范围" style="width: 100%"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="可见">
-          <el-switch on-text="" off-text="" v-model="data.visible"></el-switch>
-        </el-form-item>
-      </el-form>
+      <ui-section-content>
+        <el-form ref="form" :model="data" label-position="top">
+          <el-form-item label="ID">
+            <el-input v-model="data._id" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="名称">
+            <el-input v-model="data.name"></el-input>
+          </el-form-item>
+          <el-form-item label="时间">
+            <el-date-picker v-model="dateRange" type="daterange" placeholder="选择日期范围" style="width: 100%"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="可见">
+            <el-switch on-text="" off-text="" v-model="data.visible"></el-switch>
+          </el-form-item>
+        </el-form>
+      </ui-section-content>
     </ui-section>
     <ui-section title="题目" width="300px">
       <ui-section-content>
+        <el-button type="primary">添加题目</el-button>
+      </ui-section-content>
+      <ui-section-content extend>
         <ul>
           <li v-for="(problem, index) in sortProblems(data.problems)" class="problem-list_item">
             <router-link

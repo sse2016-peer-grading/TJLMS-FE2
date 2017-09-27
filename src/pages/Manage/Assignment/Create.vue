@@ -1,7 +1,9 @@
 <template>
-  <div class="section">
-    <h1 class="section-title">创建作业</h1>
-  </div>
+  <ui-section-container key="assignment_creare">
+    <ui-section title="创建作业">
+      TODO
+    </ui-section>
+  </ui-section-container>
 </template>
 
 <script>

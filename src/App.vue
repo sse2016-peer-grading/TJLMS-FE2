@@ -22,6 +22,18 @@ html, body, .vcContainer
   &-enter, &-leave-active
     opacity: 0
 
+.transition-highlight
+  &-enter-active, &-leave-active
+    will-change: background-color, opacity
+    transition: background-color .5s, opacity .5s
+    transition-timing-function: linear
+  &-enter
+    background-color: rgba(green, 0.5)
+  &-enter-active
+    background-color: none
+  &-leave-active
+    opacity: 0
+
 .el-menu-item, .el-submenu__title
   line-height: 40px
   height: @line-height

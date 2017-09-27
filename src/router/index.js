@@ -38,23 +38,13 @@ const router = new Router({
           },
         },
         {
-          path: '/manage/assignments/:id',
-          component: require('@/pages/Manage/Assignment/Detail'),
-          name: 'ManageAssignmentDetail',
+          path: '/manage/assignments/:aid/submissions',
+          component: require('@/pages/Manage/Submission/All'),
+          name: 'ManageAssignmentSubmissions',
           meta: {
-            title: '作业信息',
+            title: '作业递交状态',
             roles: ['admin', 'ta'],
           },
-          children: [
-            {
-              path: '/manage/assignments/:id/:pid',
-              component: require('@/pages/Manage/Assignment/Detail/ProblemDetail'),
-              name: 'ManageAssignmentDetailProblemDetail',
-              meta: {
-                roles: ['admin', 'ta'],
-              },
-            },
-          ],
         },
         {
           path: '/manage/assignments/create',
@@ -65,10 +55,30 @@ const router = new Router({
           },
         },
         {
-          path: '/manage/submission-status',
-          component: require('@/pages/Manage/SubmissionStatus'),
+          path: '/manage/assignments/:id',
+          component: require('@/pages/Manage/Assignment/Detail'),
+          name: 'ManageAssignmentDetail',
           meta: {
-            title: '递交状态',
+            title: '作业信息',
+            roles: ['admin', 'ta'],
+          },
+          children: [
+            {
+              path: '/manage/assignments/:id/problem/:pid',
+              component: require('@/pages/Manage/Assignment/Detail/ProblemDetail'),
+              name: 'ManageAssignmentDetailProblemDetail',
+              meta: {
+                roles: ['admin', 'ta'],
+              },
+            },
+          ],
+        },
+        {
+          path: '/manage/submissions/:id',
+          component: require('@/pages/Manage/Submission/Detail'),
+          name: 'ManageAssignmentSubmissionDetail',
+          meta: {
+            title: '递交详情',
             roles: ['admin', 'ta'],
           },
         },

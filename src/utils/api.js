@@ -39,6 +39,14 @@ const API = {
         return request.get(`/api/manage/assignment/${id}`);
       },
     },
+    submission: {
+      all(id) {
+        return request.get(`/api/manage/assignment/${id}/submissions`);
+      },
+      detail(id) {
+        return request.get(`/api/manage/submission/${id}`);
+      },
+    },
   },
 };
 
