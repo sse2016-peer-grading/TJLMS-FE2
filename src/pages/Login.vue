@@ -21,7 +21,6 @@
 
 <script>
 import API from '@/utils/api';
-import router from '@/router';
 
 export default {
   name: 'page-login',
@@ -48,9 +47,8 @@ export default {
           return;
         }
         try {
-          const resp = await API.user.login(this.form);
-          const { role } = resp.data;
-          router.replace('/');
+          await API.user.login(this.form);
+          this.$router.replace({ name: 'Dashboard' });
         } catch (err) {
           this.$message.error(err.message);
         }

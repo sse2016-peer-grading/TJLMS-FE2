@@ -24,6 +24,7 @@ const router = new Router({
         {
           path: '/',
           component: require('@/pages/Dashboard'),
+          name: 'Dashboard',
           meta: {
             title: '仪表盘',
             roles: ['admin', 'ta', 'student'],
@@ -63,6 +64,14 @@ const router = new Router({
             roles: ['admin', 'ta'],
           },
           children: [
+            {
+              path: '/manage/assignments/:id/problem/create',
+              component: require('@/pages/Manage/Assignment/Detail/ProblemCreate'),
+              name: 'ManageAssignmentDetailCreateProblem',
+              meta: {
+                roles: ['admin', 'ta'],
+              },
+            },
             {
               path: '/manage/assignments/:id/problem/:pid',
               component: require('@/pages/Manage/Assignment/Detail/ProblemDetail'),

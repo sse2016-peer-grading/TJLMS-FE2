@@ -2,25 +2,12 @@
   <ui-section-container key="assignment_detail" v-loading.body="loading">
     <ui-section title="作业信息" width="300px">
       <ui-section-content>
-        <el-form ref="form" :model="data" label-position="top">
-          <el-form-item label="ID">
-            <el-input v-model="data._id" disabled></el-input>
-          </el-form-item>
-          <el-form-item label="名称">
-            <el-input v-model="data.name"></el-input>
-          </el-form-item>
-          <el-form-item label="时间">
-            <el-date-picker v-model="dateRange" type="daterange" placeholder="选择日期范围" style="width: 100%"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="可见">
-            <el-switch on-text="" off-text="" v-model="data.visible"></el-switch>
-          </el-form-item>
-        </el-form>
+        <edit-form @update="handleUpdate" :value="data"></edit-form>
       </ui-section-content>
     </ui-section>
     <ui-section title="题目" width="300px">
       <ui-section-content>
-        <el-button type="primary">添加题目</el-button>
+        <el-button type="primary" @click="createProblem()">添加题目</el-button>
       </ui-section-content>
       <ui-section-content extend>
         <ul>
@@ -49,27 +36,18 @@
 
 <script>
 import API from '@/utils/api';
-import moment from 'moment';
 import _ from 'lodash';
 
 export default {
   name: 'page-manage-assignment-detail',
+  components: {
+    'edit-form': require('../Form.vue'),
+  },
   data() {
     return {
       data: {},
       loading: false,
     };
-  },
-  computed: {
-    dateRange: {
-      get() {
-        return [this.data.begin_at, this.data.end_at];
-      },
-      set([ tBegin, tEnd ]) {
-        this.data.begin_at = moment(tBegin).startOf('day').toDate();
-        this.data.end_at = moment(tEnd).endOf('day').toDate();
-      },
-    },
   },
   created() {
     this.initData();
@@ -94,6 +72,9 @@ export default {
         .map((p, idx) => ({...p, _index: idx}))
         .orderBy(['order'], ['asc'])
         .value();
+    },
+    createProblem() {
+      this.$router.push({ name: 'ManageAssignmentDetailCreateProblem', params: { id: this.$route.params.id }});
     },
   },
 }

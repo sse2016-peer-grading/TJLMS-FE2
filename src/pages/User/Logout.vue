@@ -24,7 +24,7 @@ export default {
   methods: {
     async handleClick() {
       await API.user.logout();
-      this.$router.push('/');
+      this.$router.push({ name: 'Dashboard' });
     },
   },
 }
