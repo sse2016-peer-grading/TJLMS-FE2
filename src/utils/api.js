@@ -31,6 +31,25 @@ export default {
     logout() {
       return request.get('/api/user/logout');
     },
+    changePassword({ password }) {
+      return request.post('/api/user/changePassword', { password });
+    },
+  },
+  assignment: {
+    all() {
+      return request.get('/api/assignment');
+    },
+    detail(id) {
+      return request.get(`/api/assignment/${id}`);
+    },
+    problem: {
+      detail(assignmentId, problemId) {
+        return request.get(`/api/assignment/${assignmentId}/${problemId}`);
+      },
+      submit(assignmentId, problemId, answers) {
+        return request.post(`/api/assignment/${assignmentId}/${problemId}`, { answers });
+      },
+    },
   },
   manage: {
     assignment: {
@@ -40,6 +59,9 @@ export default {
       create({ name, begin_at, end_at, visible }) {
         return request.post('/api/manage/create/assignment', { name, begin_at, end_at, visible });
       },
+      update(id, { name, begin_at, end_at, visible }) {
+        return request.post(`/api/manage/update/assignment/${id}`, { name, begin_at, end_at, visible });
+      },
       detail(id) {
         return request.get(`/api/manage/assignment/${id}`);
       },
@@ -47,9 +69,14 @@ export default {
         create(assignmentId, { order, visible, text, questions }) {
           return request.post(`/api/manage/create/problem/${assignmentId}`, { order, visible, text, questions });
         },
-        async update(problemId, { assignment_id, order, visible, text, questions }) {
-          await request.post(`/api/manage/update/problem/${problemId}/meta`, { assignment_id, order, visible });
-          return await request.post(`/api/manage/update/problem/${problemId}/content`, { questions, text });
+        update(problemId, { order, visible, text, questions }) {
+          return request.post(`/api/manage/update/problem/${problemId}`, { questions, text, order, visible });
+        },
+        rearrange({ problems }) {
+          return request.post('/api/manage/rearrange/problem', { problems });
+        },
+        delete(problemId) {
+          return request.post(`/api/manage/delete/problem/${problemId}`);
         },
       },
     },

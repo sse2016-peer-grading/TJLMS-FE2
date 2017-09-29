@@ -2,7 +2,7 @@
   <ui-section-container v-loading.body="loading" key="submission_all">
     <ui-section :title="`${data.adoc.name} 递交状态`">
       <ui-section-content>
-        <el-table :data="data.udocs" border style="width: 100%" class="status_table">
+        <!--<el-table :data="data.udocs" border style="width: 100%" class="status_table">
           <el-table-column label="姓名" width="100">
             <template scope="scope">
               {{ scope.row.realname }}
@@ -29,7 +29,7 @@
               </router-link>
             </template>
           </el-table-column>
-        </el-table>
+        </el-table>-->
       </ui-section-content>
     </ui-section>
   </ui-section-container>

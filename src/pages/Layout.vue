@@ -8,15 +8,15 @@
         :default-openeds="['problem_manage', 'answer_manage', 'user']"
         router
       >
-        <el-menu-item index="/">仪表盘</el-menu-item>
+        <el-menu-item index="/">作业列表</el-menu-item>
         <el-submenu index="problem_manage" v-if="['admin', 'ta'].indexOf(session.role) > -1">
-          <template slot="title">作业</template>
+          <template slot="title">作业管理</template>
           <el-menu-item index="/manage/assignments">所有作业</el-menu-item>
           <el-menu-item index="/manage/assignments/create">创建作业</el-menu-item>
         </el-submenu>
         <el-submenu index="user">
           <template slot="title">用户 ({{ session.username }})</template>
-          <el-menu-item index="/user/change-password">修改密码</el-menu-item>
+          <el-menu-item index="/user/changePassword">修改密码</el-menu-item>
           <el-menu-item index="/user/logout">登出</el-menu-item>
         </el-submenu>
       </el-menu>

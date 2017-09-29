@@ -76,12 +76,13 @@ export default {
           const resp = await API.manage.assignment.create(this.data);
           this.$emit('create', resp.data);
         } else {
-          alert('not implemented');
+          const resp = await API.manage.assignment.update(this.data._id, this.data);
+          this.$emit('update', resp.data);
         }
       });
     },
     cancel() {
-      this.$router.go(-1);
+      this.$emit('cancel');
     },
   },
 }

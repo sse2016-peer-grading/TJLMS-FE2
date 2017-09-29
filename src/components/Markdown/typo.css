@@ -1,0 +1,146 @@
+@charset "utf-8";
+
+.typo {
+  color: #333;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+}
+
+/* 去掉各Table cell 的边距并让其边重合 */
+.typo table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 块/段落引用 */
+.typo blockquote {
+  position: relative;
+  color: #999;
+  font-weight: 400;
+  border-left: 1px solid #1abc9c;
+  padding-left: 1em;
+  margin: 1em 3em 1em 2em;
+}
+
+@media only screen and ( max-width: 640px ) {
+  .typo blockquote {
+    margin: 1em 0;
+  }
+}
+
+/* 标记，类似于手写的荧光笔的作用 */
+.typo mark {
+  background: #fffdd1;
+  border-bottom: 1px solid #ffedce;
+  padding: 2px;
+  margin: 0 5px;
+}
+
+/* 一致化 horizontal rule */
+.typo hr {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 0.8em;
+  height: 10px;
+}
+
+/* 底部印刷体、版本等标记 */
+.typo small, .typo-small,
+  /* 图片说明 */
+.typo figcaption {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.typo strong, .typo b {
+  font-weight: bold;
+  color: #000;
+}
+
+/* 保证块/段落之间的空白隔行 */
+.typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
+.typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table, blockquote {
+  margin-bottom: 1.2em
+}
+
+.typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6 {
+  font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+  font-weight: 100;
+  color: #000;
+  line-height: 1.35;
+}
+
+/* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+.typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6,
+.typo-h1, .typo-h2, .typo-h3, .typo-h4, .typo-h5, .typo-h6 {
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+  line-height: 1.35;
+}
+
+.typo h1, .typo-h1 {
+  font-size: 2em;
+}
+
+.typo h2, .typo-h2 {
+  font-size: 1.8em;
+}
+
+.typo h3, .typo-h3 {
+  font-size: 1.6em;
+}
+
+.typo h4, .typo-h4 {
+  font-size: 1.4em;
+}
+
+.typo h5, .typo h6, .typo-h5, .typo-h6 {
+  font-size: 1.2em;
+}
+
+/* 在文章中，应该还原 ul 和 ol 的样式 */
+.typo ul, .typo-ul {
+  margin-left: 1.3em;
+  list-style: disc;
+}
+
+.typo ol, .typo-ol {
+  list-style: decimal;
+  margin-left: 1.9em;
+}
+
+.typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
+  margin-bottom: 0.8em;
+  margin-left: 2em;
+}
+
+.typo li ul, .typo-ul ul, .typo-ol ul {
+  list-style: circle;
+}
+
+/* 同 ul/ol，在文章中应用 table 基本格式 */
+.typo table th, .typo table td, .typo-table th, .typo-table td, .typo table caption {
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  color: #666;
+  text-align: left;
+}
+
+.typo table th, .typo-table th {
+  background: #fbfbfb;
+}
+
+.typo table thead th, .typo-table thead th {
+  background: #f1f1f1;
+}
+
+.typo table caption {
+  border-bottom: none;
+}
+
+/* Responsive images */
+.typo img {
+  max-width: 100%;
+}

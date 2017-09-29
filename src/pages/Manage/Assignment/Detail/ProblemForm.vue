@@ -33,6 +33,7 @@
     <el-form-item>
       <el-button @click="appendQuestion()">添加问题</el-button>
       <el-button :disabled="!assignmentId" type="primary" @click="submit()">保存</el-button>
+      <el-button v-if="data._id" @click="remove()">删除</el-button>
       <el-button @click="cancel()">取消</el-button>
     </el-form-item>
   </el-form>
@@ -101,7 +102,17 @@ export default {
       }
     },
     cancel() {
-      this.$router.go(-1);
+      this.$emit('cancel');
+    },
+    async remove() {
+      try {
+        await this.$confirm('确认删除该题目？')
+      } catch (ignore) {
+        return;
+      }
+      await API.manage.assignment.problem.delete(this.data._id);
+      this.$message.success('题目删除成功');
+      this.$router.push({ name: 'ManageAssignmentDetail', params: { id: this.$route.params.id }});
     },
   },
 }
