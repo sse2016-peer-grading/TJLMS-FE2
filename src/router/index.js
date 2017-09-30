@@ -165,7 +165,7 @@ async function checkAuth(to) {
       return '/error/forbidden';
     }
     try {
-      if (store.state.user.session.first && to.path !== '/user/changePassword') {
+      if (store.state.user.session.first && to.path !== '/user/changePassword' && to.path !== '/user/logout') {
         return '/user/changePassword?initial=true';
       }
     } catch (ignore) {
@@ -179,15 +179,6 @@ async function checkAuth(to) {
 }
 
 router.beforeResolve((to, from, next) => {
-  NProgress.start();
-  next();
-});
-
-router.afterEach(() => {
-  NProgress.done();
-});
-
-router.beforeResolve((to, from, next) => {
   if (to.meta.title) {
     document.title = `${to.meta.title} | TJLMS`;
   }
@@ -195,6 +186,15 @@ router.beforeResolve((to, from, next) => {
     .catch(err => console.error(err))
     .then(r => next(r));
   ;
+});
+
+router.beforeResolve((to, from, next) => {
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;
