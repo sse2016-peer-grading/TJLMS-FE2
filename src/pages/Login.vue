@@ -2,7 +2,7 @@
   <el-row type="flex" justify="center" align="middle" class="vcContainer">
     <el-col :md="6"><el-card>
       <div slot="header">
-        <h1>登录系统</h1>
+        <h1>登录作业系统</h1>
       </div>
       <el-form ref="form" :model="form" :rules="formRules" label-width="80" @submit.prevent.native="handleSubmit">
         <el-form-item label="用户名" prop="username">
