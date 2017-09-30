@@ -2,7 +2,7 @@
   <ui-section-container v-loading.body="loading" :key="data._id">
     <ui-section title="题目详情" width="500px">
       <ui-section-content>
-        <edit-form :assignmentId="$route.params.id" @update="handleUpdate" :value="data"></edit-form>
+        <problem-edit-form :assignmentId="$route.params.id" @update="handleProblemUpdate" @cancel="handleProblemCancel" :value="data"></problem-edit-form>
       </ui-section-content>
     </ui-section>
   </ui-section-container>
@@ -15,7 +15,7 @@ import _ from 'lodash';
 export default {
   name: 'page-manage-assignment-detail-problem-detail',
   components: {
-    'edit-form': require('./ProblemForm.vue'),
+    'problem-edit-form': require('./ProblemForm.vue').default,
   },
   data() {
     return {
@@ -39,7 +39,11 @@ export default {
         this.loading = false;
       }
     },
-    handleUpdate() {
+    handleProblemUpdate() {
+      this.$message.success('题目保存成功');
+      this.$router.push({ name: 'ManageAssignmentDetail', params: { id: this.$route.params.id }});
+    },
+    handleProblemCancel() {
       this.$router.push({ name: 'ManageAssignmentDetail', params: { id: this.$route.params.id }});
     },
   },

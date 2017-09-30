@@ -2,7 +2,7 @@
   <ui-section-container key="create_problem">
     <ui-section title="创建题目" width="500px">
       <ui-section-content>
-        <edit-form :assignmentId="$route.params.id" @create="handleCreate"></edit-form>
+        <problem-edit-form :assignmentId="$route.params.id" @create="handleProblemCreate" @cancel="handleProblemCancel"></problem-edit-form>
       </ui-section-content>
     </ui-section>
   </ui-section-container>
@@ -12,11 +12,14 @@
 export default {
   name: 'page-manage-assignment-detail-problem-create',
   components: {
-    'edit-form': require('./ProblemForm.vue'),
+    'problem-edit-form': require('./ProblemForm.vue').default,
   },
   methods: {
-    handleCreate() {
+    handleProblemCreate() {
       this.$router.push({ name: 'ManageAssignmentDetail', params: { id: this.$route.params.id }});
+    },
+    handleProblemCancel() {
+      this.$router.go(-1);
     },
   },
 }

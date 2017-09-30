@@ -2,7 +2,7 @@
   <ui-section-container key="assignment_creare">
     <ui-section title="创建作业" width="300px">
       <ui-section-content>
-        <edit-form @create="handleCreate"></edit-form>
+        <assignment-edit-form @create="handleAssignmentCreate" @cancel="handleAssignmentCancel"></assignment-edit-form>
       </ui-section-content>
     </ui-section>
   </ui-section-container>
@@ -12,11 +12,14 @@
 export default {
   name: 'page-manage-assignment-create',
   components: {
-    'edit-form': require('./Form.vue'),
+    'assignment-edit-form': require('./Form.vue').default,
   },
   methods: {
-    handleCreate(data) {
+    handleAssignmentCreate(data) {
       this.$router.push({ name: 'ManageAssignmentDetail', params: { id: data._id }});
+    },
+    handleAssignmentCancel() {
+      this.$router.go(-1);
     },
   },
 }

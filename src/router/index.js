@@ -12,27 +12,48 @@ const router = new Router({
   routes: [
     {
       path: '/login',
-      component: require('@/pages/Login'),
+      component: require('@/pages/Login').default,
       meta: {
         title: '登录',
       },
     },
     {
       path: '/',
-      component: require('@/pages/Layout'),
+      component: require('@/pages/Layout').default,
       children: [
         {
           path: '/',
-          component: require('@/pages/Dashboard'),
+          component: require('@/pages/Dashboard').default,
           name: 'Dashboard',
           meta: {
-            title: '仪表盘',
+            title: '作业列表',
             roles: ['admin', 'ta', 'student'],
           },
         },
         {
+          path: '/assignment/:aid',
+          component: require('@/pages/Assignment').default,
+          name: 'AssignmentDetail',
+          meta: {
+            title: '作业详情',
+            roles: ['admin', 'ta', 'student'],
+          },
+          children: [
+            {
+              path: '/assignment/:aid/problem/:pid',
+              component: require('@/pages/Assignment/Problem').default,
+              name: 'AssignmentProblemDetail',
+              meta: {
+                title: '题目详情',
+                roles: ['admin', 'ta', 'student'],
+              },
+            },
+          ],
+        },
+        {
           path: '/manage/assignments',
-          component: require('@/pages/Manage/Assignment/All'),
+          component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/All'),
+          name: 'ManageAssignmentAll',
           meta: {
             title: '所有作业',
             roles: ['admin', 'ta'],
@@ -40,7 +61,7 @@ const router = new Router({
         },
         {
           path: '/manage/assignments/:aid/submissions',
-          component: require('@/pages/Manage/Submission/All'),
+          component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Submission/All'),
           name: 'ManageAssignmentSubmissions',
           meta: {
             title: '作业递交状态',
@@ -49,7 +70,7 @@ const router = new Router({
         },
         {
           path: '/manage/assignments/create',
-          component: require('@/pages/Manage/Assignment/Create'),
+          component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/Create'),
           meta: {
             title: '创建作业',
             roles: ['admin', 'ta'],
@@ -57,7 +78,7 @@ const router = new Router({
         },
         {
           path: '/manage/assignments/:id',
-          component: require('@/pages/Manage/Assignment/Detail'),
+          component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/Detail'),
           name: 'ManageAssignmentDetail',
           meta: {
             title: '作业信息',
@@ -66,15 +87,23 @@ const router = new Router({
           children: [
             {
               path: '/manage/assignments/:id/problem/create',
-              component: require('@/pages/Manage/Assignment/Detail/ProblemCreate'),
-              name: 'ManageAssignmentDetailCreateProblem',
+              component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/Detail/ProblemCreate'),
+              name: 'ManageAssignmentDetailProblemCreate',
+              meta: {
+                roles: ['admin', 'ta'],
+              },
+            },
+            {
+              path: '/manage/assignments/:id/problem/rearrange',
+              component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/Detail/ProblemRearrange'),
+              name: 'ManageAssignmentDetailProblemRearrange',
               meta: {
                 roles: ['admin', 'ta'],
               },
             },
             {
               path: '/manage/assignments/:id/problem/:pid',
-              component: require('@/pages/Manage/Assignment/Detail/ProblemDetail'),
+              component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Assignment/Detail/ProblemDetail'),
               name: 'ManageAssignmentDetailProblemDetail',
               meta: {
                 roles: ['admin', 'ta'],
@@ -84,7 +113,7 @@ const router = new Router({
         },
         {
           path: '/manage/submissions/:id',
-          component: require('@/pages/Manage/Submission/Detail'),
+          component: () => import(/* webpackChunkName: "chunk-manage" */ '@/pages/Manage/Submission/Detail'),
           name: 'ManageAssignmentSubmissionDetail',
           meta: {
             title: '递交详情',
@@ -92,8 +121,16 @@ const router = new Router({
           },
         },
         {
+          path: '/user/changePassword',
+          component: require('@/pages/User/ChangePassword').default,
+          meta: {
+            title: '修改密码',
+            roles: ['admin', 'ta', 'student'],
+          },
+        },
+        {
           path: '/user/logout',
-          component: require('@/pages/User/Logout'),
+          component: require('@/pages/User/Logout').default,
           meta: {
             title: '登出',
             roles: ['admin', 'ta', 'student'],
@@ -103,14 +140,14 @@ const router = new Router({
     },
     {
       path: '/error/forbidden',
-      component: require('@/pages/Error/Forbidden'),
+      component: require('@/pages/Error/Forbidden').default,
       meta: {
         title: 'Forbidden',
       },
     },
     {
       path: '*',
-      component: require('@/pages/Error/NotFound'),
+      component: require('@/pages/Error/NotFound').default,
       meta: {
         title: 'Page Not Found',
       },
@@ -127,6 +164,12 @@ async function checkAuth(to) {
     if (to.meta.roles.indexOf(store.state.user.session.role) === -1) {
       return '/error/forbidden';
     }
+    try {
+      if (store.state.user.session.first && to.path !== '/user/changePassword') {
+        return '/user/changePassword?initial=true';
+      }
+    } catch (ignore) {
+    }
   } catch (err) {
     if (err.response.status === 401) {
       return '/login';
@@ -135,7 +178,7 @@ async function checkAuth(to) {
   }
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeResolve((to, from, next) => {
   NProgress.start();
   next();
 });
@@ -144,9 +187,9 @@ router.afterEach(() => {
   NProgress.done();
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeResolve((to, from, next) => {
   if (to.meta.title) {
-    document.title = `${to.meta.title} | TJ-LMS`;
+    document.title = `${to.meta.title} | TJLMS`;
   }
   checkAuth(to)
     .catch(err => console.error(err))

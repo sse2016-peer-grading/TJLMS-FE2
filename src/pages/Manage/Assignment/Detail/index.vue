@@ -1,17 +1,18 @@
 <template>
-  <ui-section-container key="assignment_detail" v-loading.body="loading">
+  <ui-section-container key="manage_assignment_detail" v-loading.body="loading">
     <ui-section title="作业信息" width="300px">
       <ui-section-content>
-        <edit-form @update="handleUpdate" :value="data"></edit-form>
+        <assignment-edit-form @update="handleAssignmentUpdate" @cancel="handleAssignmentCancel" :value="data"></assignment-edit-form>
       </ui-section-content>
     </ui-section>
     <ui-section title="题目" width="300px">
       <ui-section-content>
-        <el-button type="primary" @click="createProblem()">添加题目</el-button>
+        <el-button type="primary" @click="handleCreateProblemClick">添加题目</el-button>
+        <el-button @click="handleReArrangeProblemClick">重新排列</el-button>
       </ui-section-content>
       <ui-section-content extend>
         <ul>
-          <li v-for="(problem, index) in sortProblems(data.problems)" class="problem-list_item">
+          <li v-for="(problem, index) in sortProblems(data.problems)" class="problem-list_item" :key="problem._id">
             <router-link
               class="problem-list_link"
               :to="{ name: 'ManageAssignmentDetailProblemDetail', params: { id: $route.params.id, pid: problem._id } }"
@@ -41,7 +42,7 @@ import _ from 'lodash';
 export default {
   name: 'page-manage-assignment-detail',
   components: {
-    'edit-form': require('../Form.vue'),
+    'assignment-edit-form': require('../Form.vue').default,
   },
   data() {
     return {
@@ -68,13 +69,22 @@ export default {
       if (!problems) {
         return problems;
       }
-      return _(problems)
-        .map((p, idx) => ({...p, _index: idx}))
-        .orderBy(['order'], ['asc'])
-        .value();
+      return _.orderBy(
+        problems.map((p, idx) => ({...p, _index: idx})),
+        ['order'], ['asc']
+      );
     },
-    createProblem() {
-      this.$router.push({ name: 'ManageAssignmentDetailCreateProblem', params: { id: this.$route.params.id }});
+    handleCreateProblemClick() {
+      this.$router.push({ name: 'ManageAssignmentDetailProblemCreate', params: { id: this.$route.params.id }});
+    },
+    handleReArrangeProblemClick() {
+      this.$router.push({ name: 'ManageAssignmentDetailProblemRearrange', params: { id: this.$route.params.id }});
+    },
+    handleAssignmentUpdate() {
+      this.$message.success('保存成功');
+    },
+    handleAssignmentCancel() {
+      this.$router.push({ name: 'ManageAssignmentAll' });
     },
   },
 }
