@@ -2,10 +2,10 @@
   <ui-section-container v-loading.body="loading" key="submission_all">
     <ui-section :title="`${data.udoc.realname} (${data.udoc.username}) 在 ${data.adoc.name} 的递交详情`" width="500px">
       <ui-section-content>
-        <ui-markdown :markdown="data.pdoc.text"></ui-markdown>>
+        <ui-markdown :markdown="data.pdoc.text"></ui-markdown>
         <div :key="qdoc._id" v-for="(qdoc, index) in data.pdoc.questions" class="question_item">
           <div class="title">Q{{ index+1 }}:</div>
-          <ui-markdown :markdown="qdoc.text"></ui-markdown>>
+          <ui-markdown :markdown="qdoc.text"></ui-markdown>
           <div class="title">A{{ index+1 }}:</div>
           <pre>{{ getAnswer(qdoc._id) }}</pre>
         </div>
